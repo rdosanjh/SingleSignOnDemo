@@ -1,0 +1,332 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Thinktecture.IdentityServer3.AccessTokenValidation</name>
+    </assembly>
+    <members>
+        <member name="P:Thinktecture.IdentityServer.AccessTokenValidation.CachingDiscoveryIssuerSecurityTokenProvider.Issuer">
+            <summary>
+            Gets the issuer the credentials are for.
+            </summary>
+            <value>
+            The issuer the credentials are for.
+            </value>
+        </member>
+        <member name="P:Thinktecture.IdentityServer.AccessTokenValidation.CachingDiscoveryIssuerSecurityTokenProvider.Audience">
+            <value>
+            The identity server default audience
+            </value>
+        </member>
+        <member name="P:Thinktecture.IdentityServer.AccessTokenValidation.CachingDiscoveryIssuerSecurityTokenProvider.SecurityTokens">
+            <summary>
+            Gets all known security tokens.
+            </summary>
+            <value>
+            All known security tokens.
+            </value>
+        </member>
+        <member name="T:Thinktecture.IdentityServer.AccessTokenValidation.Clock">
+            <summary>
+            Default clock implementation based on DateTimeOffset
+            </summary>
+        </member>
+        <member name="T:Thinktecture.IdentityServer.AccessTokenValidation.IClock">
+            <summary>
+            Interface to abstract the clock
+            </summary>
+        </member>
+        <member name="P:Thinktecture.IdentityServer.AccessTokenValidation.IClock.UtcNow">
+            <summary>
+            Gets the UTC now.
+            </summary>
+            <value>
+            The UTC now.
+            </value>
+        </member>
+        <member name="P:Thinktecture.IdentityServer.AccessTokenValidation.Clock.UtcNow">
+            <summary>
+            Gets the current UTC date/time 
+            </summary>
+            <value>
+            UtcNow
+            </value>
+        </member>
+        <member name="M:Thinktecture.IdentityServer.AccessTokenValidation.EpochTimeExtensions.ToEpochTime(System.DateTime)">
+            <summary>
+            Converts the given date value to epoch time.
+            </summary>
+        </member>
+        <member name="M:Thinktecture.IdentityServer.AccessTokenValidation.EpochTimeExtensions.ToEpochTime(System.DateTimeOffset)">
+            <summary>
+            Converts the given date value to epoch time.
+            </summary>
+        </member>
+        <member name="M:Thinktecture.IdentityServer.AccessTokenValidation.EpochTimeExtensions.ToDateTimeFromEpoch(System.Int64)">
+            <summary>
+            Converts the given epoch time to a <see cref="T:System.DateTime"/> with <see cref="F:System.DateTimeKind.Utc"/> kind.
+            </summary>
+        </member>
+        <member name="M:Thinktecture.IdentityServer.AccessTokenValidation.EpochTimeExtensions.ToDateTimeOffsetFromEpoch(System.Int64)">
+            <summary>
+            Converts the given epoch time to a UTC <see cref="T:System.DateTimeOffset"/>.
+            </summary>
+        </member>
+        <member name="T:Thinktecture.IdentityServer.AccessTokenValidation.ICache">
+            <summary>
+            Abstraction for a cache
+            </summary>
+        </member>
+        <member name="M:Thinktecture.IdentityServer.AccessTokenValidation.ICache.Add(System.String,System.Object,System.DateTimeOffset)">
+            <summary>
+            Adds the specified key.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+            <param name="absoluteExpiration">The absolute expiration.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Thinktecture.IdentityServer.AccessTokenValidation.ICache.Get(System.String)">
+            <summary>
+            Gets the specified key.
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Thinktecture.IdentityServer.AccessTokenValidation.IValidationResultCache">
+            <summary>
+            Interface for caching then token validation result
+            </summary>
+        </member>
+        <member name="M:Thinktecture.IdentityServer.AccessTokenValidation.IValidationResultCache.AddAsync(System.String,System.Collections.Generic.IEnumerable{System.Security.Claims.Claim})">
+            <summary>
+            Add a validation result
+            </summary>
+            <param name="token">The token.</param>
+            <param name="claims">The claims.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Thinktecture.IdentityServer.AccessTokenValidation.IValidationResultCache.GetAsync(System.String)">
+            <summary>
+            Retrieves a validation result
+            </summary>
+            <param name="token">The token.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Owin.IdentityServerAccessTokenValidationAppBuilderExtensions">
+            <summary>
+            Extension method for wiring up the access token validation middleware to the OWIN pipeline
+            </summary>
+        </member>
+        <member name="M:Owin.IdentityServerAccessTokenValidationAppBuilderExtensions.UseIdentityServerBearerTokenAuthentication(Owin.IAppBuilder,Thinktecture.IdentityServer.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions)">
+            <summary>
+            Adds the access token validation middleware to the OWIN pipeline.
+            </summary>
+            <param name="app">The application.</param>
+            <param name="options">The options.</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException">options</exception>
+        </member>
+        <member name="T:Thinktecture.IdentityServer.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions">
+            <summary>
+            Options class for configuring the access token validation middleware
+            </summary>
+        </member>
+        <member name="M:Thinktecture.IdentityServer.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Thinktecture.IdentityServer.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions"/> class.
+            </summary>
+        </member>
+        <member name="P:Thinktecture.IdentityServer.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions.ValidationMode">
+            <summary>
+            Gets or sets the validation mode (either local for JWT tokens, or using the validation endpoint for both JWT and reference tokens.
+            </summary>
+            <value>
+            The validation mode.
+            </value>
+        </member>
+        <member name="P:Thinktecture.IdentityServer.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions.Authority">
+            <summary>
+            Gets or sets the base adress of IdentityServer - this is used to construct the URLs to the discovery document and the validation endpoint
+            </summary>
+            <value>
+            The authority.
+            </value>
+        </member>
+        <member name="P:Thinktecture.IdentityServer.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions.RequiredScopes">
+            <summary>
+            Gets or sets one of the required scopes to access the API
+            </summary>
+            <value>
+            The required scopes.
+            </value>
+        </member>
+        <member name="P:Thinktecture.IdentityServer.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions.NameClaimType">
+            <summary>
+            Gets or sets the type of the name claim.
+            </summary>
+            <value>
+            The type of the name claim.
+            </value>
+        </member>
+        <member name="P:Thinktecture.IdentityServer.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions.RoleClaimType">
+            <summary>
+            Gets or sets the type of the role claim.
+            </summary>
+            <value>
+            The type of the role claim.
+            </value>
+        </member>
+        <member name="P:Thinktecture.IdentityServer.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions.IssuerName">
+            <summary>
+            Gets or sets the name of the issuer (only use if authority is not set).
+            </summary>
+            <value>
+            The name of the issuer.
+            </value>
+        </member>
+        <member name="P:Thinktecture.IdentityServer.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions.IssuerCertificate">
+            <summary>
+            Gets or sets the issuer certificate (only used if authority is not set).
+            </summary>
+            <value>
+            The issuer certificate.
+            </value>
+        </member>
+        <member name="P:Thinktecture.IdentityServer.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions.EnableValidationResultCache">
+            <summary>
+            Gets or sets a value indicating whether the result of the validation endpoint should be cached.
+            </summary>
+            <value>
+              <c>true</c> if caching should be enabled; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Thinktecture.IdentityServer.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions.ValidationResultCache">
+            <summary>
+            Gets or sets the claims cache implementation (defaults to in-memory).
+            </summary>
+            <value>
+            The claims cache.
+            </value>
+        </member>
+        <member name="P:Thinktecture.IdentityServer.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions.ValidationResultCacheDuration">
+            <summary>
+            Specifies for how long the validation results should be cached.
+            </summary>
+            <value>
+            The duration of the claims cache.
+            </value>
+        </member>
+        <member name="P:Thinktecture.IdentityServer.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions.Provider">
+            <summary>
+            Gets or sets the authentication provider.
+            </summary>
+            <value>
+            The provider.
+            </value>
+        </member>
+        <member name="P:Thinktecture.IdentityServer.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions.BackchannelCertificateValidator">
+            <summary>
+            Gets or sets the a certificate validator to use to validate the metadata endpoint.
+            </summary>
+            <value>
+            The certificate validator.
+            </value>
+            <remarks>If this property is null then the default certificate checks are performed,
+            validating the subject name and if the signing chain is a trusted party.</remarks>
+        </member>
+        <member name="P:Thinktecture.IdentityServer.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions.BackchannelHttpHandler">
+            <summary>
+            The HttpMessageHandler used to communicate with the metadata endpoint.
+            This cannot be set at the same time as BackchannelCertificateValidator unless the value
+            can be downcast to a WebRequestHandler.
+            </summary>
+        </member>
+        <member name="P:Thinktecture.IdentityServer.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions.TokenValidationParameters">
+            <summary>
+            Gets or sets the <see cref="P:Thinktecture.IdentityServer.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions.TokenValidationParameters"/> used to determine if a token is valid.
+            </summary>
+        </member>
+        <member name="P:Thinktecture.IdentityServer.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions.TokenHandler">
+            <summary>
+            A System.IdentityModel.Tokens.SecurityTokenHandler designed for creating and validating Json Web Tokens.
+            </summary>
+        </member>
+        <member name="T:Thinktecture.IdentityServer.AccessTokenValidation.Cache">
+            <summary>
+            Cache implementation using System.Runtime.Cachine.MemoryCache
+            </summary>
+        </member>
+        <member name="M:Thinktecture.IdentityServer.AccessTokenValidation.Cache.Add(System.String,System.Object,System.DateTimeOffset)">
+            <summary>
+            Adds the specified key.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+            <param name="absoluteExpiration">The absolute expiration.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Thinktecture.IdentityServer.AccessTokenValidation.Cache.Get(System.String)">
+            <summary>
+            Gets the specified key.
+            </summary>
+            <param name="key">The key.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Thinktecture.IdentityServer.AccessTokenValidation.InMemoryValidationResultCache">
+            <summary>
+            In-memory cache for validation results
+            </summary>
+        </member>
+        <member name="M:Thinktecture.IdentityServer.AccessTokenValidation.InMemoryValidationResultCache.#ctor(Thinktecture.IdentityServer.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Thinktecture.IdentityServer.AccessTokenValidation.InMemoryValidationResultCache"/> class.
+            </summary>
+            <param name="options">The options.</param>
+        </member>
+        <member name="M:Thinktecture.IdentityServer.AccessTokenValidation.InMemoryValidationResultCache.#ctor(Thinktecture.IdentityServer.AccessTokenValidation.IdentityServerBearerTokenAuthenticationOptions,Thinktecture.IdentityServer.AccessTokenValidation.IClock,Thinktecture.IdentityServer.AccessTokenValidation.ICache)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Thinktecture.IdentityServer.AccessTokenValidation.InMemoryValidationResultCache"/> class.
+            </summary>
+            <param name="options">The options.</param>
+            <param name="clock">The clock.</param>
+            <param name="cache">The cache.</param>
+            <exception cref="T:System.ArgumentNullException">
+            clock
+            or
+            options
+            or
+            cache
+            </exception>
+        </member>
+        <member name="M:Thinktecture.IdentityServer.AccessTokenValidation.InMemoryValidationResultCache.AddAsync(System.String,System.Collections.Generic.IEnumerable{System.Security.Claims.Claim})">
+            <summary>
+            Add a validation result
+            </summary>
+            <param name="token">The token.</param>
+            <param name="claims">The claims.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Thinktecture.IdentityServer.AccessTokenValidation.InMemoryValidationResultCache.GetAsync(System.String)">
+            <summary>
+            Retrieves a validation result
+            </summary>
+            <param name="token">The token.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Thinktecture.IdentityServer.AccessTokenValidation.ValidationMode">
+            <summary>
+            Enum for specifying where to validate the access token
+            </summary>
+        </member>
+        <member name="F:Thinktecture.IdentityServer.AccessTokenValidation.ValidationMode.Local">
+            <summary>
+            Use local validation (only suitable for JWT tokens)
+            </summary>
+        </member>
+        <member name="F:Thinktecture.IdentityServer.AccessTokenValidation.ValidationMode.ValidationEndpoint">
+            <summary>
+            Use the validation endpoint (works for both JWT and reference tokens)
+            </summary>
+        </member>
+    </members>
+</doc>

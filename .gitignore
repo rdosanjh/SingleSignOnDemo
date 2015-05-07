@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/SSODemo/bin
+/SSODemo/logs
+/SSODemo/obj/Debug
+*.user
+*.suo
